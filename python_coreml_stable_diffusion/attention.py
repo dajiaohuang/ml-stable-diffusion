@@ -83,7 +83,7 @@ def split_einsum_v2(q, k, v, mask, heads, dim_head):
     - Chunks the query sequence to avoid large intermediate tensors and improves ANE performance
     """
     query_seq_length = q.size(3)
-    num_chunks = query_seq_length // CHUNK_SIZE
+    num_chunks = (query_seq_length + CHUNK_SIZE - 1) // CHUNK_SIZE
     
     if num_chunks == 0:
         logger.info(
